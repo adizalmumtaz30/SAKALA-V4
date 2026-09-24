@@ -1,69 +1,108 @@
-import Image from "next/image";
+import { getReadinessCounts } from "@/application/readiness.usecases";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ReadinessBadge } from "@/components/ui/readiness-badge";
 
-export default function Home() {
+interface ReadinessItem {
+  label: string;
+  count: number;
+  hint: string;
+}
+
+export default async function BerandaPage() {
+  const counts = await getReadinessCounts();
+
+  const items: ReadinessItem[] = [
+    { label: "Guru", count: counts.teachers, hint: "Data guru sekolah" },
+    { label: "Mapel", count: counts.subjects, hint: "Mata pelajaran & warna identitas" },
+    { label: "Kelas", count: counts.classes, hint: "Kelas tahun ajaran berjalan" },
+    { label: "Ruang", count: counts.rooms, hint: "Ruang kelas & ruang khusus" },
+    {
+      label: "Beban Mengajar",
+      count: counts.teachingAssignments,
+      hint: "Guru + Mapel + Kelas + JP",
+    },
+    {
+      label: "Jam ke-",
+      count: counts.timeSlotsTeaching,
+      hint: "Struktur waktu mengajar aktif",
+    },
+  ];
+
+  const readyCount = items.filter((i) => i.count > 0).length;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <main className="mx-auto flex min-h-full w-full max-w-5xl flex-col gap-8 px-6 py-10">
+      <header className="flex flex-col gap-1">
+        <p className="text-sm font-medium text-muted-foreground">
+          Konteks tahun ajaran belum dipilih
+        </p>
+        <h1 className="font-serif text-3xl font-semibold text-foreground">
+          Beranda SAKALA
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Workspace akademik sekolah — data master, Jam ke-, dan jadwal.
+        </p>
+      </header>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <CardTitle>Kesiapan Penjadwalan</CardTitle>
+              <CardDescription>
+                {readyCount} dari {items.length} langkah sudah ada isinya.
+              </CardDescription>
+            </div>
+            <ReadinessBadge
+              state={readyCount === items.length ? "done" : "empty"}
+              label={
+                readyCount === items.length
+                  ? "Siap menjadwalkan"
+                  : "Belum siap menjadwalkan"
+              }
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <ul className="flex flex-col divide-y divide-border">
+            {items.map((item) => (
+              <li
+                key={item.label}
+                className="flex items-center justify-between gap-4 py-3"
+              >
+                <div className="flex flex-col">
+                  <span className="text-sm font-semibold text-foreground">
+                    {item.label}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{item.hint}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <ReadinessBadge
+                    state={item.count > 0 ? "done" : "empty"}
+                    label={item.count > 0 ? `${item.count} data` : "Belum diisi"}
+                  />
+                  <Button variant="secondary" size="sm" type="button" disabled>
+                    Isi sekarang
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+
+      <p className="text-xs text-muted-foreground">
+        Progres ditampilkan sebagai daftar periksa, bukan langkah paksa. Halaman
+        pengisian data (Guru, Mapel, Kelas, Ruang, Beban Mengajar, Struktur Waktu)
+        menyusul di tahap berikutnya — tombol di atas sengaja dinonaktifkan dulu.
+      </p>
+    </main>
   );
 }
