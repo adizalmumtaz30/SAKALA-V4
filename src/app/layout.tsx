@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "Workspace digital akademik sekolah: data master, struktur waktu (Jam ke-), dan penjadwalan.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="id"
