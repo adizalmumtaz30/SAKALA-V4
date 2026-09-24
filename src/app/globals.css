@@ -1,0 +1,235 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   SAKALA V4 — Design tokens: "Papan Jadwal" (Tactile Craft), light-first
+   Sumber: SAKALA_V4_REV2_MASTER_BUILD_SPEC.md §5.3–§5.5, §28 (ADR-001/007)
+   ========================================================================== */
+
+:root {
+  /* -- Sumber cahaya & radius dasar -- */
+  --light-x: -1px;
+  --light-y: -1px;
+  --radius: 0.625rem;
+
+  /* -- Material: kertas / tinta / kuningan / walnut -- */
+  --paper-50: #fbf7ee;
+  --paper-100: #f3ecdd;
+  --paper-200: #e7ddc8;
+  --paper-300: #d4c7ab;
+  --ink-900: #2b2620;
+  --ink-700: #4a4238;
+  --ink-500: #6e6455;
+  --brass-500: #b08d3c;
+  --brass-600: #8f7130;
+  --walnut-600: #5a4030;
+
+  /* -- Elevasi (maks 2 lapis bayangan per elemen) -- */
+  --elev-0: none;
+  --elev-1: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 1px 2px rgba(43, 38, 32, 0.18);
+  --elev-2: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 4px 10px rgba(43, 38, 32, 0.16);
+  --elev-3: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 14px 24px rgba(43, 38, 32, 0.22);
+  --elev-focus: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 24px 40px rgba(43, 38, 32, 0.28);
+  --inset-1: inset 1px 1px 3px rgba(43, 38, 32, 0.22), inset -1px -1px 0 rgba(255, 255, 255, 0.6);
+  --press-1: inset 1px 2px 4px rgba(43, 38, 32, 0.28);
+
+  /* -- Peran semantik terikat ke material (light) -- */
+  --background: var(--paper-50);
+  --foreground: var(--ink-900);
+  --card: var(--paper-100);
+  --card-foreground: var(--ink-900);
+  --popover: var(--paper-50);
+  --popover-foreground: var(--ink-900);
+  --primary: var(--brass-500);
+  --primary-foreground: var(--paper-50);
+  --secondary: var(--paper-200);
+  --secondary-foreground: var(--ink-900);
+  --muted: var(--paper-200);
+  --muted-foreground: var(--ink-500);
+  --accent: var(--paper-300);
+  --accent-foreground: var(--ink-900);
+  --destructive: #b3372f;
+  --border: var(--paper-300);
+  --input: var(--paper-300);
+  --ring: var(--brass-500);
+
+  /* -- Status slot jadwal (§17, §5.4) — selalu didampingi ikon + label -- */
+  --status-scheduled: var(--paper-100);
+  --status-auto-ink: var(--ink-900);
+  --status-manual-ink: var(--ink-900);
+  --status-locked: var(--brass-500);
+  --status-conflict: #b3372f;
+  --status-warning: #b7791f;
+  --status-preview: #3b6ea5;
+  --status-protected: #6b5b95;
+
+  /* -- Motion tokens (§5.10) -- */
+  --motion-fast: 120ms;
+  --motion-normal: 200ms;
+  --motion-slow: 320ms;
+  --motion-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* -- 24 warna semantik Mapel (ADR-001, §28) — disinkronkan ke DB subjects.color_token -- */
+  --subject-01: #7a3e48; /* garnet */
+  --subject-02: #a5523a; /* terracotta */
+  --subject-03: #b27a2b; /* amber */
+  --subject-04: #8a7a2e; /* olive */
+  --subject-05: #5c7f3e; /* moss */
+  --subject-06: #3e7a50; /* emerald */
+  --subject-07: #2e7c6b; /* viridian */
+  --subject-08: #2b7285; /* lagoon */
+  --subject-09: #34669a; /* cobalt */
+  --subject-10: #5a55a3; /* iris */
+  --subject-11: #7e4e9a; /* orchid */
+  --subject-12: #9c4a68; /* raspberry */
+  --subject-13: #3d6b5e; /* jade */
+  --subject-14: #2f7a73; /* teal */
+  --subject-15: #3b6ea5; /* sapphire */
+  --subject-16: #4a5fa0; /* indigo */
+  --subject-17: #6b5b95; /* amethyst */
+  --subject-18: #8a4f8c; /* plum */
+  --subject-19: #a34d74; /* rose */
+  --subject-20: #9a5b4d; /* sienna */
+  --subject-21: #6f6a5a; /* taupe */
+  --subject-22: #59636e; /* slate */
+  --subject-23: #7a5c3c; /* umber */
+  --subject-24: #4f5d3a; /* pine */
+}
+
+/* -- Dark: "Papan Malam" — varian yang kontrasnya diuji ulang, bukan dibalik otomatis -- */
+.dark {
+  --background: #221f1b;
+  --foreground: #ece5d6;
+  --card: #2b2722;
+  --card-foreground: #ece5d6;
+  --popover: #221f1b;
+  --popover-foreground: #ece5d6;
+  --primary: #c9a24f;
+  --primary-foreground: #221f1b;
+  --secondary: #35302a;
+  --secondary-foreground: #ece5d6;
+  --muted: #35302a;
+  --muted-foreground: #b5ab98;
+  --accent: #3f3830;
+  --accent-foreground: #ece5d6;
+  --destructive: #e0554a;
+  --border: #443c33;
+  --input: #443c33;
+  --ring: #c9a24f;
+
+  --status-scheduled: #2b2722;
+  --status-auto-ink: #ece5d6;
+  --status-manual-ink: #ece5d6;
+  --status-locked: #c9a24f;
+  --status-conflict: #e0554a;
+  --status-warning: #d19a3c;
+  --status-preview: #5d93c9;
+  --status-protected: #8d7ab8;
+
+  --elev-1: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 1px 2px rgba(0, 0, 0, 0.4);
+  --elev-2: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 4px 10px rgba(0, 0, 0, 0.38);
+  --elev-3: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 14px 24px rgba(0, 0, 0, 0.45);
+  --elev-focus: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 24px 40px rgba(0, 0, 0, 0.5);
+  --inset-1: inset 1px 1px 3px rgba(0, 0, 0, 0.5), inset -1px -1px 0 rgba(255, 255, 255, 0.03);
+  --press-1: inset 1px 2px 4px rgba(0, 0, 0, 0.55);
+}
+
+/* -- Cetak: efek material dimatikan, hitam-putih tetap terbaca (§5.11) -- */
+@media print {
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-paper-50: var(--paper-50);
+  --color-paper-100: var(--paper-100);
+  --color-paper-200: var(--paper-200);
+  --color-paper-300: var(--paper-300);
+  --color-ink-900: var(--ink-900);
+  --color-ink-700: var(--ink-700);
+  --color-ink-500: var(--ink-500);
+  --color-brass-500: var(--brass-500);
+  --color-brass-600: var(--brass-600);
+  --color-walnut-600: var(--walnut-600);
+
+  --color-status-scheduled: var(--status-scheduled);
+  --color-status-locked: var(--status-locked);
+  --color-status-conflict: var(--status-conflict);
+  --color-status-warning: var(--status-warning);
+  --color-status-preview: var(--status-preview);
+  --color-status-protected: var(--status-protected);
+
+  --color-subject-01: var(--subject-01);
+  --color-subject-02: var(--subject-02);
+  --color-subject-03: var(--subject-03);
+  --color-subject-04: var(--subject-04);
+  --color-subject-05: var(--subject-05);
+  --color-subject-06: var(--subject-06);
+  --color-subject-07: var(--subject-07);
+  --color-subject-08: var(--subject-08);
+  --color-subject-09: var(--subject-09);
+  --color-subject-10: var(--subject-10);
+  --color-subject-11: var(--subject-11);
+  --color-subject-12: var(--subject-12);
+  --color-subject-13: var(--subject-13);
+  --color-subject-14: var(--subject-14);
+  --color-subject-15: var(--subject-15);
+  --color-subject-16: var(--subject-16);
+  --color-subject-17: var(--subject-17);
+  --color-subject-18: var(--subject-18);
+  --color-subject-19: var(--subject-19);
+  --color-subject-20: var(--subject-20);
+  --color-subject-21: var(--subject-21);
+  --color-subject-22: var(--subject-22);
+  --color-subject-23: var(--subject-23);
+  --color-subject-24: var(--subject-24);
+
+  --shadow-elev-1: var(--elev-1);
+  --shadow-elev-2: var(--elev-2);
+  --shadow-elev-3: var(--elev-3);
+  --shadow-elev-focus: var(--elev-focus);
+  --shadow-inset-1: var(--inset-1);
+  --shadow-press-1: var(--press-1);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "tnum" 1; /* angka tabular untuk jam & JP */
+  }
+}
