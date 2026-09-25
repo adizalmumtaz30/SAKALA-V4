@@ -4,139 +4,149 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ==========================================================================
-   SAKALA V4 — Design tokens: "Papan Jadwal" (Tactile Craft), light-first
-   Sumber: SAKALA_V4_REV2_MASTER_BUILD_SPEC.md §5.3–§5.5, §28 (ADR-001/007)
+   SAKALA V4 — Design tokens: "Signal" (modern, premium, quiet-rich)
+   Redesain total dari "Papan Jadwal" (skeuomorphism) → flat-elevated modern SaaS.
+   Palet: Signal Violet #7A35FF + Mist Gray #F0F2F5.
    ========================================================================== */
 
 :root {
-  /* -- Sumber cahaya & radius dasar -- */
-  --light-x: -1px;
-  --light-y: -1px;
-  --radius: 0.625rem;
+  --radius: 0.75rem;
 
-  /* -- Material: kertas / tinta / kuningan / walnut -- */
-  --paper-50: #fbf7ee;
-  --paper-100: #f3ecdd;
-  --paper-200: #e7ddc8;
-  --paper-300: #d4c7ab;
-  --ink-900: #2b2620;
-  --ink-700: #4a4238;
-  --ink-500: #6e6455;
-  --brass-500: #b08d3c;
-  --brass-600: #8f7130;
-  --walnut-600: #5a4030;
+  /* -- Signal Violet — brand & aksi utama, dipakai HEMAT (bukan blok besar) -- */
+  --violet-50: #f5f1ff;
+  --violet-100: #ebe4ff;
+  --violet-200: #d6c7ff;
+  --violet-300: #b99cff;
+  --violet-400: #9a6eff;
+  --violet-500: #7a35ff; /* Signal Violet */
+  --violet-600: #6320e8;
+  --violet-700: #4e18ba;
+  --violet-800: #3a1289;
+  --violet-900: #271061;
 
-  /* -- Elevasi (maks 2 lapis bayangan per elemen) -- */
-  --elev-0: none;
-  --elev-1: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 1px 2px rgba(43, 38, 32, 0.18);
-  --elev-2: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 4px 10px rgba(43, 38, 32, 0.16);
-  --elev-3: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 14px 24px rgba(43, 38, 32, 0.22);
-  --elev-focus: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 24px 40px rgba(43, 38, 32, 0.28);
-  --inset-1: inset 1px 1px 3px rgba(43, 38, 32, 0.22), inset -1px -1px 0 rgba(255, 255, 255, 0.6);
-  --press-1: inset 1px 2px 4px rgba(43, 38, 32, 0.28);
+  /* -- Mist Gray — permukaan & latar, netral dominan -- */
+  --mist-50: #ffffff;
+  --mist-100: #f7f8fa;
+  --mist-200: #f0f2f5; /* Mist Gray */
+  --mist-300: #e4e6ec;
+  --mist-400: #d3d6e0;
 
-  /* -- Peran semantik terikat ke material (light) -- */
-  --background: var(--paper-50);
-  --foreground: var(--ink-900);
-  --card: var(--paper-100);
-  --card-foreground: var(--ink-900);
-  --popover: var(--paper-50);
-  --popover-foreground: var(--ink-900);
-  --primary: var(--brass-500);
-  --primary-foreground: var(--paper-50);
-  --secondary: var(--paper-200);
+  /* -- Ink — teks & garis, netral dingin sedikit ungu (kohesi dengan brand) -- */
+  --ink-950: #0e0b14;
+  --ink-900: #17131f;
+  --ink-700: #322b42;
+  --ink-500: #6b6478;
+  --ink-300: #a29cb0;
+
+  /* -- Peran semantik (light) -- */
+  --background: var(--mist-200);
+  --foreground: var(--ink-950);
+  --card: var(--mist-50);
+  --card-foreground: var(--ink-950);
+  --popover: var(--mist-50);
+  --popover-foreground: var(--ink-950);
+  --primary: var(--violet-500);
+  --primary-foreground: var(--mist-50);
+  --secondary: var(--mist-100);
   --secondary-foreground: var(--ink-900);
-  --muted: var(--paper-200);
+  --muted: var(--mist-300);
   --muted-foreground: var(--ink-500);
-  --accent: var(--paper-300);
-  --accent-foreground: var(--ink-900);
-  --destructive: #b3372f;
-  --border: var(--paper-300);
-  --input: var(--paper-300);
-  --ring: var(--brass-500);
+  --accent: var(--violet-100);
+  --accent-foreground: var(--violet-700);
+  --destructive: #e11d48;
+  --border: var(--mist-400);
+  --input: var(--mist-400);
+  --ring: var(--violet-500);
 
-  /* -- Status slot jadwal (§17, §5.4) — selalu didampingi ikon + label -- */
-  --status-scheduled: var(--paper-100);
-  --status-auto-ink: var(--ink-900);
-  --status-manual-ink: var(--ink-900);
-  --status-locked: var(--brass-500);
-  --status-conflict: #b3372f;
-  --status-warning: #b7791f;
-  --status-preview: #3b6ea5;
-  --status-protected: #6b5b95;
+  /* -- Status slot jadwal — flat, jelas, selalu ikon + label -- */
+  --status-scheduled: var(--mist-100);
+  --status-auto-ink: var(--ink-500);
+  --status-manual: var(--violet-500);
+  --status-locked: var(--ink-900);
+  --status-conflict: #e11d48;
+  --status-warning: #f59e0b;
+  --status-preview: #0ea5e9;
+  --status-protected: #64748b;
 
-  /* -- Motion tokens (§5.10) -- */
+  /* -- Elevasi modern: bayangan lembut menyebar, bukan tajam/berundak -- */
+  --shadow-xs: 0 1px 2px rgba(23, 19, 31, 0.04);
+  --shadow-sm: 0 1px 3px rgba(23, 19, 31, 0.06), 0 1px 2px rgba(23, 19, 31, 0.04);
+  --shadow-md: 0 4px 16px rgba(23, 19, 31, 0.08), 0 1px 2px rgba(23, 19, 31, 0.04);
+  --shadow-lg: 0 16px 40px rgba(23, 19, 31, 0.12), 0 2px 6px rgba(23, 19, 31, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(122, 53, 255, 0.18);
+  --shadow-glow: 0 8px 28px rgba(122, 53, 255, 0.22);
+
+  /* -- Motion: expo-out, kesan responsif premium -- */
   --motion-fast: 120ms;
   --motion-normal: 200ms;
   --motion-slow: 320ms;
-  --motion-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* -- 24 warna semantik Mapel (ADR-001, §28) — disinkronkan ke DB subjects.color_token -- */
-  --subject-01: #7a3e48; /* garnet */
-  --subject-02: #a5523a; /* terracotta */
-  --subject-03: #b27a2b; /* amber */
-  --subject-04: #8a7a2e; /* olive */
-  --subject-05: #5c7f3e; /* moss */
-  --subject-06: #3e7a50; /* emerald */
-  --subject-07: #2e7c6b; /* viridian */
-  --subject-08: #2b7285; /* lagoon */
-  --subject-09: #34669a; /* cobalt */
-  --subject-10: #5a55a3; /* iris */
-  --subject-11: #7e4e9a; /* orchid */
-  --subject-12: #9c4a68; /* raspberry */
-  --subject-13: #3d6b5e; /* jade */
-  --subject-14: #2f7a73; /* teal */
-  --subject-15: #3b6ea5; /* sapphire */
-  --subject-16: #4a5fa0; /* indigo */
-  --subject-17: #6b5b95; /* amethyst */
-  --subject-18: #8a4f8c; /* plum */
-  --subject-19: #a34d74; /* rose */
-  --subject-20: #9a5b4d; /* sienna */
-  --subject-21: #6f6a5a; /* taupe */
-  --subject-22: #59636e; /* slate */
-  --subject-23: #7a5c3c; /* umber */
-  --subject-24: #4f5d3a; /* pine */
+  /* -- 24 warna Mapel (ADR-001) — flat modern, saturasi selaras, tenang di grid padat -- */
+  --subject-01: #f43f5e; /* rose */
+  --subject-02: #f97316; /* orange */
+  --subject-03: #f59e0b; /* amber */
+  --subject-04: #eab308; /* yellow */
+  --subject-05: #84cc16; /* lime */
+  --subject-06: #22c55e; /* green */
+  --subject-07: #10b981; /* emerald */
+  --subject-08: #14b8a6; /* teal */
+  --subject-09: #06b6d4; /* cyan */
+  --subject-10: #0ea5e9; /* sky */
+  --subject-11: #3b82f6; /* blue */
+  --subject-12: #6366f1; /* indigo */
+  --subject-13: #7a35ff; /* violet (signal) */
+  --subject-14: #a855f7; /* purple */
+  --subject-15: #d946ef; /* fuchsia */
+  --subject-16: #ec4899; /* pink */
+  --subject-17: #f472b6; /* pink-light */
+  --subject-18: #fb7185; /* rose-light */
+  --subject-19: #fbbf24; /* amber-light */
+  --subject-20: #4ade80; /* green-light */
+  --subject-21: #2dd4bf; /* teal-light */
+  --subject-22: #38bdf8; /* sky-light */
+  --subject-23: #818cf8; /* indigo-light */
+  --subject-24: #c084fc; /* purple-light */
 }
 
-/* -- Dark: "Papan Malam" — varian yang kontrasnya diuji ulang, bukan dibalik otomatis -- */
+/* -- Dark: "Signal Dark" — obsidian sungguhan + violet redup, bukan invert kasar -- */
 .dark {
-  --background: #221f1b;
-  --foreground: #ece5d6;
-  --card: #2b2722;
-  --card-foreground: #ece5d6;
-  --popover: #221f1b;
-  --popover-foreground: #ece5d6;
-  --primary: #c9a24f;
-  --primary-foreground: #221f1b;
-  --secondary: #35302a;
-  --secondary-foreground: #ece5d6;
-  --muted: #35302a;
-  --muted-foreground: #b5ab98;
-  --accent: #3f3830;
-  --accent-foreground: #ece5d6;
-  --destructive: #e0554a;
-  --border: #443c33;
-  --input: #443c33;
-  --ring: #c9a24f;
+  --background: #0d0b12;
+  --foreground: #f0eef5;
+  --card: #17141f;
+  --card-foreground: #f0eef5;
+  --popover: #17141f;
+  --popover-foreground: #f0eef5;
+  --primary: #9a6eff;
+  --primary-foreground: #0d0b12;
+  --secondary: #1e1a29;
+  --secondary-foreground: #f0eef5;
+  --muted: #241f30;
+  --muted-foreground: #a29cb0;
+  --accent: #271f3d;
+  --accent-foreground: #b99cff;
+  --destructive: #fb7185;
+  --border: #2a2436;
+  --input: #2a2436;
+  --ring: #9a6eff;
 
-  --status-scheduled: #2b2722;
-  --status-auto-ink: #ece5d6;
-  --status-manual-ink: #ece5d6;
-  --status-locked: #c9a24f;
-  --status-conflict: #e0554a;
-  --status-warning: #d19a3c;
-  --status-preview: #5d93c9;
-  --status-protected: #8d7ab8;
+  --status-scheduled: #1e1a29;
+  --status-auto-ink: #a29cb0;
+  --status-manual: #9a6eff;
+  --status-locked: #f0eef5;
+  --status-conflict: #fb7185;
+  --status-warning: #fbbf24;
+  --status-preview: #38bdf8;
+  --status-protected: #94a3b8;
 
-  --elev-1: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 1px 2px rgba(0, 0, 0, 0.4);
-  --elev-2: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 4px 10px rgba(0, 0, 0, 0.38);
-  --elev-3: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 14px 24px rgba(0, 0, 0, 0.45);
-  --elev-focus: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 24px 40px rgba(0, 0, 0, 0.5);
-  --inset-1: inset 1px 1px 3px rgba(0, 0, 0, 0.5), inset -1px -1px 0 rgba(255, 255, 255, 0.03);
-  --press-1: inset 1px 2px 4px rgba(0, 0, 0, 0.55);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-focus: 0 0 0 3px rgba(154, 110, 255, 0.28);
+  --shadow-glow: 0 10px 32px rgba(154, 110, 255, 0.35);
 }
 
-/* -- Cetak: efek material dimatikan, hitam-putih tetap terbaca (§5.11) -- */
 @media print {
   * {
     box-shadow: none !important;
@@ -165,18 +175,31 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-paper-50: var(--paper-50);
-  --color-paper-100: var(--paper-100);
-  --color-paper-200: var(--paper-200);
-  --color-paper-300: var(--paper-300);
+  --color-violet-50: var(--violet-50);
+  --color-violet-100: var(--violet-100);
+  --color-violet-200: var(--violet-200);
+  --color-violet-300: var(--violet-300);
+  --color-violet-400: var(--violet-400);
+  --color-violet-500: var(--violet-500);
+  --color-violet-600: var(--violet-600);
+  --color-violet-700: var(--violet-700);
+  --color-violet-800: var(--violet-800);
+  --color-violet-900: var(--violet-900);
+
+  --color-mist-50: var(--mist-50);
+  --color-mist-100: var(--mist-100);
+  --color-mist-200: var(--mist-200);
+  --color-mist-300: var(--mist-300);
+  --color-mist-400: var(--mist-400);
+
+  --color-ink-950: var(--ink-950);
   --color-ink-900: var(--ink-900);
   --color-ink-700: var(--ink-700);
   --color-ink-500: var(--ink-500);
-  --color-brass-500: var(--brass-500);
-  --color-brass-600: var(--brass-600);
-  --color-walnut-600: var(--walnut-600);
+  --color-ink-300: var(--ink-300);
 
   --color-status-scheduled: var(--status-scheduled);
+  --color-status-manual: var(--status-manual);
   --color-status-locked: var(--status-locked);
   --color-status-conflict: var(--status-conflict);
   --color-status-warning: var(--status-warning);
@@ -208,20 +231,20 @@
   --color-subject-23: var(--subject-23);
   --color-subject-24: var(--subject-24);
 
-  --shadow-elev-1: var(--elev-1);
-  --shadow-elev-2: var(--elev-2);
-  --shadow-elev-3: var(--elev-3);
-  --shadow-elev-focus: var(--elev-focus);
-  --shadow-inset-1: var(--inset-1);
-  --shadow-press-1: var(--press-1);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-focus: var(--shadow-focus);
+  --shadow-glow: var(--shadow-glow);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 }
 
 @layer base {
@@ -230,6 +253,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "tnum" 1; /* angka tabular untuk jam & JP */
+    font-feature-settings: "tnum" 1, "ss01" 1;
   }
 }

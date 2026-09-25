@@ -50,9 +50,11 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col gap-6 border-r border-border bg-card/60 px-4 py-6 shadow-(--shadow-elev-2)">
+    <aside className="flex w-64 shrink-0 flex-col gap-6 border-r border-border bg-card px-4 py-6">
       <div className="px-2">
-        <span className="font-serif text-xl font-semibold text-foreground">SAKALA</span>
+        <span className="font-serif text-2xl italic font-medium text-foreground">
+          Sakala
+        </span>
       </div>
       <nav className="flex flex-1 flex-col gap-5">
         {NAV_GROUPS.map((group, i) => (
@@ -70,10 +72,10 @@ export function Sidebar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-md px-2 py-1.5 text-sm font-medium transition-colors",
+                    "rounded-lg px-2 py-1.5 text-sm font-medium transition-colors duration-(--motion-fast)",
                     active
-                      ? "bg-primary/15 text-primary-foreground/90 text-brass-600"
-                      : "text-foreground/80 hover:bg-accent/60",
+                      ? "bg-accent text-accent-foreground"
+                      : "text-foreground/70 hover:bg-secondary hover:text-foreground",
                   )}
                 >
                   {item.label}

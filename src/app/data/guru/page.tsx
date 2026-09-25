@@ -1,4 +1,6 @@
 import { teacherRepository } from "@/data/teacher.repository";
+
+export const dynamic = "force-dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ReadinessBadge } from "@/components/ui/readiness-badge";
 import { GuruForm } from "./guru-form";

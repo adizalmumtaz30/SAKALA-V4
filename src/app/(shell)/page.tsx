@@ -1,4 +1,7 @@
 import { getReadinessCounts } from "@/application/readiness.usecases";
+
+// Data berubah tiap ada input operator — jangan di-prerender statis saat build.
+export const dynamic = "force-dynamic";
 import {
   Card,
   CardContent,
